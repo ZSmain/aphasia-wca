@@ -10,17 +10,19 @@ class Quiz(models.Model):
         return self.title
     
 class Question(models.Model):
-    TYPE_CHOICES = (
-        'single', 'multiple', 'text',
-    )
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
-    question = models.ImageField(upload_to='quiz/images/')
-    type = models.CharField(max_length=200)
+    
+    type = models.CharField(max_length=200, blank=True, null=True)
+    instruction = models.CharField(max_length=200, null=True)
+    
+    image_question = models.ImageField(upload_to='quiz_images', blank=True, null=True)
+    text_question = models.TextField(blank=True, null=True)
+    label = models.CharField(max_length=200, blank=True, null=True)
     
     is_active = models.BooleanField(default=True)
-
+    
     def __str__(self):
-        return self.text
+        return self.label
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
