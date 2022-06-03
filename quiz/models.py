@@ -48,8 +48,7 @@ class UserAnswer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
     
-    is_correct = models.BooleanField(default=False)
-    answer_time = models.DateTimeField()
+    answer_time = models.TimeField(null=True)
 
     def __str__(self):
         return self.user.username
