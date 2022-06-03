@@ -25,8 +25,14 @@ class Question(models.Model):
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     
-    choice = models.ImageField(upload_to='quiz/images/')
+    image_choice = models.ImageField(upload_to='quiz_images', blank=True, null=True)
+    text_choice = models.TextField(blank=True, null=True)
+    label = models.CharField(max_length=200, blank=True, null=True)
+    
     is_correct = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f'{self.question.label} - {self.label}'
 
 class Take(models.Model):
     STATUS_CHOICES = (
