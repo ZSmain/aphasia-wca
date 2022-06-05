@@ -17,6 +17,7 @@ class Question(models.Model):
     
     image_question = models.ImageField(upload_to='quiz_images', blank=True, null=True)
     text_question = models.TextField(blank=True, null=True)
+    paragraph = models.TextField(blank=True, null=True)
     label = models.CharField(max_length=200, blank=True, null=True)
     
     is_active = models.BooleanField(default=True)
