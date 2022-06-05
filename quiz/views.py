@@ -124,3 +124,59 @@ def get_question_choices(request):
     else:
         raise Http404
 
+@login_required
+def results(request, quiz_id):
+    quiz = Quiz.objects.filter(id=quiz_id).first()
+    
+    # get all questions ids of this quiz.
+    questions_ids = Question.objects.filter(quiz=quiz).values_list('id', flat=True)
+    
+    # get all user's answers.
+    user_answers = UserAnswer.objects.filter(user=request.user, question_id__in=questions_ids).all()
+    
+    # get all questions.
+    questions = Question.objects.filter(id__in=questions_ids).all()
+    
+    # get all choices.
+    choices = Answer.objects.filter(question_id__in=questions_ids).all()
+    
+    # get all correct answers.
+    correct_answers = Answer.objects.filter(question_id__in=questions_ids, is_correct=True).all()
+    
+    # get all user's answers.
+    user_answers_ids = user_answers.values_list('answer_id', flat=True)
+    
+    # get all correct answers ids.
+    correct_answers_ids = correct_answers.values_list('id', flat=True)
+    
+    # get all user's answers that are correct.
+    correct_answers_ids_set = set(correct_answers_ids)
+    user_answers_ids_set = set(user_answers_ids)
+    correct_answers_ids_set_intersection = correct_answers_ids_set.intersection(user_answers_ids_set)
+    
+    # get all user's answers that are incorrect.
+    incorrect_answers_ids_set = correct_answers_ids_set_intersection.difference(user_answers_ids_set)
+    
+    # get all correct answers that are incorrect.
+    incorrect_answers_ids = list(incorrect_answers_ids_set)
+    
+    # get all user's answers that are incorrect.
+    incorrect_answers_ids_set = correct_answers_ids_set_intersection.difference(user_answers_ids_set)
+    
+    context = {
+        'quiz': quiz,
+        'questions': questions,
+        'choices': choices,
+        'user_answers': user_answers,
+        'correct_answers': correct_answers,
+        'incorrect_answers': Answer.objects.filter(id__in=incorrect_answers_ids).all(),
+        'user_answers_ids': user_answers_ids,
+        'correct_answers_ids': correct_answers_ids,
+        'incorrect_answers_ids': incorrect_answers_ids,
+        'correct_answers_ids_set': correct_answers_ids_set,
+        'user_answers_ids_set': user_answers_ids_set,
+        'correct_answers_ids_set_intersection': correct_answers_ids_set_intersection,
+        'incorrect_answers_ids_set': incorrect_answers_ids_set,
+    }
+
+    return render(request, 'quiz/results.html', context)
