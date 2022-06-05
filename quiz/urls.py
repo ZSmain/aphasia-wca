@@ -7,7 +7,8 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('dashboard', views.dashboard, name='dashboard'),
-    # path('quiz/<int:quiz_id>/', views.quiz, name='quiz'),
+    path('quiz/<int:quiz_id>/', views.quiz, name='quiz'),
+    path('question_choices.json', views.get_question_choices, name='get_question_choices'),
 ]
 
 if settings.DEBUG:
