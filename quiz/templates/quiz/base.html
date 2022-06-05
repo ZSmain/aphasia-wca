@@ -13,6 +13,10 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <!-- Tajawal Googl font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet"> 
 
     <!-- Bootstrap Bundle with Popper -->
     <script
@@ -41,7 +45,7 @@
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'dashboard' %}" tabindex="-1">Dashbord</a>
+                    <a class="nav-link" href="{% url 'dashboard' %}" tabindex="-1">Dashboard</a>
                 </li>
                 {% else %}
                 <!--Display About and contact pages links-->
