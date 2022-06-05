@@ -10,9 +10,20 @@ class Quiz(models.Model):
         return self.title
     
 class Question(models.Model):
+    
+    QUESTION_TYPES = [
+        ('picture to word', 'الصورة الموافقة للكلمة'),
+        ('word to picture', 'الكلمة الموافقة للصورة'),
+        ('picture to sentence', 'الصورة الموافقة للجملة'),
+        ('sentence to picture', 'الجملة الموافقة للصورة'),
+        ('interrogative sentence', 'جملة إستفهامية'),
+        ('fill blank', 'ملء الفراغ'),
+        ('understanding text', 'فهم النص'),
+    ]
+    
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     
-    type = models.CharField(max_length=200, blank=True, null=True)
+    type = models.CharField(max_length=200, choices=QUESTION_TYPES,blank=True, null=True)
     instruction = models.CharField(max_length=200, null=True)
     
     image_question = models.ImageField(upload_to='quiz_images', blank=True, null=True)
