@@ -1,0 +1,60 @@
+{% extends 'quiz/base.html' %}
+
+{% load static %}
+    
+{% block title %}
+    Quiz
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+
+        <div id="question-card" dir="rtl" class="card text-center">
+            <div class="card-header fs-4">
+                <!-- show the Question number (auto generated)-->
+                <span id="question-number">1</span> - <span id="question-instruction">
+                    <!-- {{ question.instruction}} -->
+                </span>
+            </div>
+            <div class="card-body">
+                <!-- add a div that can show the question text, image or both -->
+                <div id="question" class="d-flex">
+                    <div id="question-text" class="p-2 flex-fill fs-1 fw-bold" style="font-family: 'Tajawal', sans-serif;">
+                        <!-- {{question.text_question}} -->
+                    </div>
+                    <div id="question-image-div" class="p-2 flex-fill">
+                        <!-- add an image -->
+                        <img id="question-image" src="{{ question.image_question }}" alt="">
+                    </div>
+                </div>
+
+                <!-- show a division line -->
+                <hr>
+
+                <!-- add a div that can show the answer's choices texts or images -->
+                <div id="answer-choices" class="row">
+                    <!-- <div class="col">Choice 1</div>
+                    <div class="col">Choice 2</div>
+                    <div class="col">Choice 3</div>
+                    <div class="col">Choice 4</div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // store the questions_ids in an array.
+        var questions_ids = [];
+        "{% for question_id in questions_ids %}"
+            questions_ids.push("{{ question_id }}");
+        "{% endfor %}"
+        var quiz_id = "{{ quiz.id }}";
+
+        var get_question_choices_url = "{% url 'get_question_choices' %}";
+        var results_url = '/quiz/results/' + quiz_id + '/';
+    </script>
+
+<script src="{% static 'quiz/js/quiz.js' %}"></script>
+    
+{% endblock %}
