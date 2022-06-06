@@ -1,0 +1,65 @@
+{% extends 'quiz/base.html' %}
+
+{% load static %}
+    
+{% block title %}
+    Quiz
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <br>
+        <h1 dir="rtl" class="">نتائج تقييم الفهم الكتابي عند الحبسي الراشد من خلال البرنامج المعلوماتي التقييمي SAWCA<h1>
+        <br>
+
+        <!-- dispaly the user's information on a grid like -->
+        <div class="container" dir="rtl">
+            <div class="row">
+                <div class="col">
+                    <h2 class="">اللقب: {{ user.last_name }}</h2>
+                </div>
+                <div class="col">
+                    <h2 class="">الاسم: {{ user.first_name }}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h2 class="">الجنس: {{ user.profile.sex }}</h2>
+                </div>
+                <div class="col">
+                    <h2 class="">تاريخ الميلاد: {{user.profile.birth_date}}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h2 class="">المستوى الدراسي: {{user.profile.academic_degree}}</h2>
+                </div>
+                <div class="col">
+                    <h2 class="">نوع الحبسة: {{user.profile.aphasia_type}}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h2  class="">تاريخ الإصابة: {{user.profile.injury_date}}</h2>
+                </div>
+                <div class="col">
+                    <h2 class="">تاريخ إجراء الإختبار: </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h2 class="">العنوان: {{user.profile.address}}</h2>
+                </div>
+                <div class="col">
+                    <h2 class="">رقم الهاتف: {{user.profile.phone_number}}</h2>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    
+    <script>
+    </script>
+    
+{% endblock %}
