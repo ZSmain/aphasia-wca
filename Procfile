@@ -1,1 +1,1 @@
-web: gunicorn aphasiawca.wsgi
+web: gunicorn aphasiawca.wsgi --log-file -

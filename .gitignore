@@ -1,9 +1,8 @@
-data
-venv
-aphasiawca/__pycache__/
-accounts/__pycache__/
-accounts/migrations/
-quiz/__pycache__/
-quiz/migrations/
-static/admin/
-static/quiz/
+__pycache__/
+*.log
+*.pot
+*.pyc
+db.sqlite3
+static/
+venv/
+data/
