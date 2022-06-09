@@ -91,6 +91,18 @@
 						</div>
 						<div class="input-group mb-2">
 							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-input-text"></i></span>
+							</div>
+							{{form.first_name}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-input-text"></i></span>
+							</div>
+							{{form.last_name}}
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
 							{{form.password1}}
@@ -130,8 +142,10 @@
 		var form_fields = document.getElementsByTagName('input')
 		form_fields[2].placeholder='Username..';
 		form_fields[3].placeholder='Email..';
-		form_fields[4].placeholder='Enter password...';
-		form_fields[5].placeholder='Re-enter Password...';
+		form_fields[4].placeholder='First Name..';
+		form_fields[5].placeholder='Last Name';
+		form_fields[6].placeholder='Enter password...';
+		form_fields[7].placeholder='Re-enter Password...';
 
 
 		for (var field in form_fields){	
