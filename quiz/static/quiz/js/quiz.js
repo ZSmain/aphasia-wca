@@ -137,22 +137,22 @@ function getQuestionChoices(question_id, choice_id) {
                     
                     // if the fill_blank_answers array is not empty, 
                     // replace every '___' with elements from the fill_blank_answers array.
-                    if (fill_blank_answers.length > 0) {
-                        let fill_blank_index = 0;
-                        let question_text = data.question[0].text;
+                    let question_text = data.question[0].text;
 
-                        while (true) {
-                            // get the index of the '___' in the text.
-                            let index = question_text.indexOf('ـــــ');
-                            if (index == -1) {
-                                break;
-                            }
-                            // replace the '___' with the fill_blank_answers array element.
-                            question_text = question_text.replace('ـــــ', fill_blank_answers[fill_blank_index]);
-                            $('#question-text').text(question_text);
-                            fill_blank_index++;
-                        }
+                    for (let i = 0; i < fill_blank_answers.length; i++) {
+                        question_text = question_text.replace('ـــــ', `<span style="color: forestgreen">${fill_blank_answers[i]}</span>`);
                     }
+
+                    // split the text by '.'
+                    let question_text_array = question_text.split('.');
+                    if (question_text_array.length > 1) {
+                        // set the question text to the second element of the array.
+                        $('#question-text').html(question_text_array[1]);
+                    } else {
+                        // set the question text to whole text.
+                        $('#question-text').html(question_text);
+                    }
+                    
                 } else if (data.choices[0].text.split(' ').length == 1 || data.choices[1].text.split(' ').length == 2) {
                     $('#answer-choices').attr('class', 'row row-cols-2');
                 } else if (data.choices[1].text.split(' ').length >= 3) {
