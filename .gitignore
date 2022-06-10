@@ -4,6 +4,7 @@ migrations/
 *.pot
 *.pyc
 db.sqlite3
-static/
+static/admin/
+static/quiz/
 venv/
 data/
