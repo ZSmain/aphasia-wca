@@ -120,24 +120,21 @@ function getQuestionChoices(question_id, choice_id) {
             }
         } else {
             // style will change based on number of choices, type of question and length of the text.
-            let textClasses = 'fw-bold';
+            let textClasses = 'fw-bold fs-1';
 
             // change the style and number of columns based on the number of choices.
             if (number_choices == 4) {
                 // check if the question type is 'fill blank'.
                 if (data.question[0].type == 'fill_blank') {
                     $('#answer-choices').attr('class', 'row row-cols-4');
-                    textClasses += ' fs-1';
+                    
                 } else if (data.choices[0].text.split(' ').length == 1 || data.choices[1].text.split(' ').length == 2) {
                     $('#answer-choices').attr('class', 'row row-cols-2');
-                    textClasses += ' fs-1';
                 } else if (data.choices[1].text.split(' ').length >= 3) {
                     $('#answer-choices').attr('class', 'row row-cols-1');
-                    textClasses += ' fs-1';
                 }
             } else if (number_choices == 6) {
                 $('#answer-choices').attr('class', 'row row-cols-3');
-                textClasses += ' fs-1';
             }
 
             // if the question has text, add the text to the choices div.
