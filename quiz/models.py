@@ -69,6 +69,9 @@ class UserAnswer(models.Model):
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
     
     answer_time = models.TimeField(null=True)
+    
+    class Meta:
+        unique_together = ('user', 'question')
 
     def __str__(self):
         return self.user.username
