@@ -125,9 +125,27 @@ function getQuestionChoices(question_id, choice_id) {
             // change the style and number of columns based on the number of choices.
             if (number_choices == 4) {
                 // check if the question type is 'fill blank'.
-                if (data.question[0].type == 'fill_blank') {
+                if (data.question[0].type == 'fill blank') {
                     $('#answer-choices').attr('class', 'row row-cols-4');
                     
+                    // if the fill_blank_answers array is not empty, 
+                    // replace every '___' with elements from the fill_blank_answers array.
+                    if (fill_blank_answers.length > 0) {
+                        let fill_blank_index = 0;
+                        let question_text = data.question[0].text;
+
+                        while (true) {
+                            // get the index of the '___' in the text.
+                            let index = question_text.indexOf('ـــــ');
+                            if (index == -1) {
+                                break;
+                            }
+                            // replace the '___' with the fill_blank_answers array element.
+                            question_text = question_text.replace('ـــــ', fill_blank_answers[fill_blank_index]);
+                            $('#question-text').text(question_text);
+                            fill_blank_index++;
+                        }
+                    }
                 } else if (data.choices[0].text.split(' ').length == 1 || data.choices[1].text.split(' ').length == 2) {
                     $('#answer-choices').attr('class', 'row row-cols-2');
                 } else if (data.choices[1].text.split(' ').length >= 3) {
