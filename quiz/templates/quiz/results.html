@@ -7,56 +7,16 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" dir="rtl">
         <br>
-        <h1 dir="rtl" class="">نتائج تقييم الفهم الكتابي عند الحبسي الراشد من خلال البرنامج المعلوماتي التقييمي SAWCA<h1>
+        <h1 class="">تقييم الفهم الكتابي عند الحبسي الراشد<h1>
+        <hr>
         <br>
 
-        <!-- dispaly the user's information on a grid like -->
-        <div class="container" dir="rtl">
-            <div class="row">
-                <div class="col">
-                    <h2 class="">اللقب: {{ user.last_name }}</h2>
-                </div>
-                <div class="col">
-                    <h2 class="">الاسم: {{ user.first_name }}</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h2 class="">الجنس: {{ user.profile.sex }}</h2>
-                </div>
-                <div class="col">
-                    <h2 class="">تاريخ الميلاد: {{user.profile.birth_date}}</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h2 class="">المستوى الدراسي: {{user.profile.academic_degree}}</h2>
-                </div>
-                <div class="col">
-                    <h2 class="">نوع الحبسة: {{user.profile.aphasia_type}}</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h2  class="">تاريخ الإصابة: {{user.profile.injury_date}}</h2>
-                </div>
-                <div class="col">
-                    <h2 class="">تاريخ إجراء الإختبار: </h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h2 class="">العنوان: {{user.profile.address}}</h2>
-                </div>
-                <div class="col">
-                    <h2 class="">رقم الهاتف: {{user.profile.phone_number}}</h2>
-                </div>
-            </div>
-        </div>
-
-        
+        <h3 class="fs-3">شكرا {{user.first_name}} {{user.last_name}} لإكمالك التقييم</h3>
+        <h3 class="fs-3">لقد أكملت التقييم في {{quiz_time}} دقيقة</h3>
+        <h3 class="fs-3">عدد الأجوبة الصحيجة: {{correct_answers}}</h3>
+        <h3 class="fs-3">عدد الأجوبة الخاطئة: {{incorrect_answers}}</h3>
     </div>
     
     <script>

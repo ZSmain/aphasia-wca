@@ -1,4 +1,3 @@
-from multiprocessing import context
 import sys
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -6,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import Http404, JsonResponse
 from django.http.response import HttpResponse
 import datetime
+from django.db.models import Sum
 
 from .models import Answer, Question, Quiz, Take, UserAnswer
 
@@ -128,55 +128,33 @@ def get_question_choices(request):
 def results(request, quiz_id):
     quiz = Quiz.objects.filter(id=quiz_id).first()
     
-    # get all questions ids of this quiz.
-    questions_ids = Question.objects.filter(quiz=quiz).values_list('id', flat=True)
+    # get the total number of correct answers.
+    total_correct_answers = UserAnswer.objects.filter(
+        user=request.user,
+        question__quiz=quiz,
+        answer__is_correct=True
+    ).count()
     
-    # get all user's answers.
-    user_answers = UserAnswer.objects.filter(user=request.user, question_id__in=questions_ids).all()
+    # get the total number of incorrect answers.
+    total_incorrect_answers = UserAnswer.objects.filter(
+        user=request.user,
+        question__quiz=quiz,
+        answer__is_correct=False
+    ).count()
     
-    # get all questions.
-    questions = Question.objects.filter(id__in=questions_ids).all()
+    # get the total time spent on the quiz.
+    quiz_time = UserAnswer.objects.filter(
+        user=request.user,
+        question__quiz=quiz
+    ).aggregate(
+        Sum('answer_time')
+    )['answer_time__sum']
     
-    # get all choices.
-    choices = Answer.objects.filter(question_id__in=questions_ids).all()
-    
-    # get all correct answers.
-    correct_answers = Answer.objects.filter(question_id__in=questions_ids, is_correct=True).all()
-    
-    # get all user's answers.
-    user_answers_ids = user_answers.values_list('answer_id', flat=True)
-    
-    # get all correct answers ids.
-    correct_answers_ids = correct_answers.values_list('id', flat=True)
-    
-    # get all user's answers that are correct.
-    correct_answers_ids_set = set(correct_answers_ids)
-    user_answers_ids_set = set(user_answers_ids)
-    correct_answers_ids_set_intersection = correct_answers_ids_set.intersection(user_answers_ids_set)
-    
-    # get all user's answers that are incorrect.
-    incorrect_answers_ids_set = correct_answers_ids_set_intersection.difference(user_answers_ids_set)
-    
-    # get all correct answers that are incorrect.
-    incorrect_answers_ids = list(incorrect_answers_ids_set)
-    
-    # get all user's answers that are incorrect.
-    incorrect_answers_ids_set = correct_answers_ids_set_intersection.difference(user_answers_ids_set)
     
     context = {
-        'quiz': quiz,
-        'questions': questions,
-        'choices': choices,
-        'user_answers': user_answers,
-        'correct_answers': correct_answers,
-        'incorrect_answers': Answer.objects.filter(id__in=incorrect_answers_ids).all(),
-        'user_answers_ids': user_answers_ids,
-        'correct_answers_ids': correct_answers_ids,
-        'incorrect_answers_ids': incorrect_answers_ids,
-        'correct_answers_ids_set': correct_answers_ids_set,
-        'user_answers_ids_set': user_answers_ids_set,
-        'correct_answers_ids_set_intersection': correct_answers_ids_set_intersection,
-        'incorrect_answers_ids_set': incorrect_answers_ids_set,
+        'correct_answers': total_correct_answers,
+        'incorrect_answers': total_incorrect_answers,
+        'quiz_time': quiz_time,
     }
 
     return render(request, 'quiz/results.html', context)
