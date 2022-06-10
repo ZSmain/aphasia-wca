@@ -19,13 +19,17 @@
             </div>
             <div class="card-body">
                 <!-- add a div that can show the question text, image or both -->
-                <div id="question" class="d-flex">
-                    <div id="question-text" class="p-2 flex-fill fs-1 fw-bold" style="font-family: 'Tajawal', sans-serif;">
-                        <!-- {{question.text_question}} -->
+                <div id="question">
+                    <div id="question-paragraph" class="fs-4">
                     </div>
-                    <div id="question-image-div" class="p-2 flex-fill">
-                        <!-- add an image -->
-                        <img id="question-image" src="{{ question.image_question }}" alt="">
+                    <div id="question-body" class="d-flex">
+                        <div id="question-text" class="p-2 flex-fill fs-1 fw-bold" style="font-family: 'Tajawal', sans-serif;">
+                            <!-- {{question.text_question}} -->
+                        </div>
+                        <div id="question-image-div" class="p-2 flex-fill">
+                            <!-- add an image -->
+                            <img id="question-image" src="{{ question.image_question }}" alt="">
+                        </div>
                     </div>
                 </div>
 

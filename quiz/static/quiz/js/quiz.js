@@ -92,6 +92,13 @@ function getQuestionChoices(question_id, choice_id) {
             $('#question-text').show();
         }
 
+        // check if the question has a non empty paragraph.
+        $('#question-paragraph').hide();
+        if(data.question[0].paragraph !== ''){
+            $('#question-paragraph').text(data.question[0].paragraph);
+            $('#question-paragraph').show();
+        }
+
         // delete any previous choices.
         $('#answer-choices').empty();
 
