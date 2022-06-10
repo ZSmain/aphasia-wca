@@ -46,8 +46,10 @@
     <script>
         // store the questions_ids in an array.
         var questions_ids = [];
-        "{% for question_id in questions_ids %}"
-            questions_ids.push("{{ question_id }}");
+        var questions_types = [];
+        "{% for question in questions %}"
+            questions_ids.push("{{ question.id }}");
+            questions_types.push("{{ question.type }}");
         "{% endfor %}"
         var quiz_id = "{{ quiz.id }}";
 

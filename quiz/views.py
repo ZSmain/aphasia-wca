@@ -29,9 +29,9 @@ def quiz(request, quiz_id):
     quiz = Quiz.objects.filter(id=quiz_id).first()
     
     # get all questions ids of this quiz.
-    questions_ids = Question.objects.filter(quiz=quiz).values_list('id', flat=True)
+    questions = Question.objects.filter(quiz=quiz).values('id', 'type').order_by('id')
     
-    context = {'quiz': quiz, 'questions_ids': questions_ids}
+    context = {'quiz': quiz, 'questions': list(questions)}
     
     return render(request, 'quiz/quiz.html', context)
 
