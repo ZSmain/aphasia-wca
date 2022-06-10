@@ -4,6 +4,9 @@ var question_id_index = 0;
 // hold the starting time of the question.
 var question_start_time = new Date().getTime();
 
+// hold the answer's of the fill in blanks question.
+var fill_blank_answers = [];
+
 $(document).ready(function(){
     // log all questions ids.
     console.log("questions_ids: ", questions_ids);
@@ -22,6 +25,13 @@ $(document).ready(function(){
             console.log("Please select an answer.");
             return;
         } else {
+            // if the question type is "fill blank", store the 
+            // fill in blanks answer choice in the fill_blank_answers array.
+            if (questions_types[question_id_index] == 'fill blank') {
+                // get the choice text.
+                let choice_text = $(this).text();
+                fill_blank_answers.push(choice_text);
+            }
             // get the next question and its answer choices.
             getQuestionChoices(questions_ids[question_id_index], selected_choice);
             
