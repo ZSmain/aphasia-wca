@@ -191,3 +191,23 @@ def results(request, quiz_id):
     }
 
     return render(request, 'quiz/results.html', context)
+
+@login_required
+def dashboard(request):
+    # get all 
+    users_answers = UserAnswer.objects.order_by(
+        'user'
+    ).values(
+        'user'
+    ).annotate(
+        user_id=F('user__id'),
+        user_first_name=F('user__first_name'),
+        user_last_name=F('user__last_name'),
+        total_answers=Count('id'),
+        total_correct_answers=Count('id', filter=Q(answer__is_correct=True)),
+        total_incorrect_answers=Count('id', filter=Q(answer__is_correct=False)),
+        total_time=Sum('answer_time')
+    ).all()
+    
+    return render(request, 'quiz/dashboard.html', {'users_answers': users_answers})
+
