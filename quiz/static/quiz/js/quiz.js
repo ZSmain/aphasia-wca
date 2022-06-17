@@ -198,6 +198,8 @@ function getQuestionChoices(question_id, choice_id) {
                         question_text = question_text.replace('ـــــ', `<span style="color: forestgreen">${fill_blank_answers[i]}</span>`);
                     }
 
+                    question_text = question_text.replace('ـــــ', `<span class="border border-2 border-primary m-2 p-2 rounded-pill">ــــــــــ</span>`);
+
                     // split the text by '.'
                     let question_text_array = question_text.split('.');
                     if (question_text_array.length > 1) {
