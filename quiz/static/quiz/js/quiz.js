@@ -7,6 +7,9 @@ var question_start_time = new Date().getTime();
 // hold the answer's of the fill in blanks question.
 var fill_blank_answers = [];
 
+// condition to check if the first "understanding text" is shown.
+var text_model_cnd = false;
+
 $(document).ready(function(){
     // get the first question and its answer choices.
     getQuestionChoices(questions_ids[question_id_index], null);
@@ -124,6 +127,24 @@ function getQuestionChoices(question_id, choice_id) {
         if(data.question[0].text !== ''){
             $('#question-text').text(data.question[0].text);
             $('#question-text').show();
+        }
+
+        // check if the question is of type "understanding text" and it's the first one of that type.
+        if (data.question[0].type == 'understanding text' && text_model_cnd === false) {
+            // hide the question-card.
+            $("#question-card").hide();
+
+            // show the text in a modal.
+            $('#understanding-text-modal').modal('show');
+            text_model_cnd = true;
+
+            // restart the question start time when the modal is closed.
+            $('#understanding-text-modal').on('hidden.bs.modal', function(){
+                // show the question-card.
+                $("#question-card").show();
+
+                question_start_time = new Date().getTime();
+            });
         }
 
         // check if the question has a non empty paragraph.
