@@ -43,17 +43,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                {% if user.is_authenticated %}
+                {% if user.is_superuser %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'dashboard' %}" tabindex="-1">Dashboard</a>
-                </li>
-                {% else %}
-                <!--Display About and contact pages links-->
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Contact</a>
+                    <a class="nav-link" href="{% url 'dashboard' %}" tabindex="-1">النتائج</a>
                 </li>
                 {% endif %}
             </ul>
