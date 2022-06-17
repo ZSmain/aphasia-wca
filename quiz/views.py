@@ -46,8 +46,15 @@ def get_question_choices(request):
             answer_time = request.POST['answer_time']
             next_question_id = request.POST['next_question_id']
             
+            # 
             # convert answer_time from miliseconds to TimeField.
-            answer_time = datetime.datetime.fromtimestamp(int(answer_time))
+            #
+            # get the current date and time.
+            date_time = datetime.datetime.now()
+            # set the time part to 0.
+            date_time = date_time.replace(hour=0, minute=0, second=0, microsecond=0)
+
+            answer_time = (date_time + datetime.timedelta(milliseconds=int(answer_time))).time()
             
             response = {'status': 'failed'}
             
