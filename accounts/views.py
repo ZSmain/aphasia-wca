@@ -15,7 +15,7 @@ def registerPage(request):
             if form.is_valid():
                 form.save()
                 user = form.cleaned_data.get('username')
-                messages.success(request, 'Account was created for ' + user)
+                messages.success(request, 'لقد تم إنشاء الحساب ل ' + user)
                 
                 return redirect('login')
         
@@ -36,7 +36,7 @@ def loginPage(request):
                 login(request, user)
                 return redirect('home')
             else:
-                messages.info(request, 'Username or password is incorrect')
+                messages.info(request, 'إسم المستخدم أو كلمة المرور غير صحيحة')
         context = {}
         return render(request, 'accounts/login.html', context)
     
