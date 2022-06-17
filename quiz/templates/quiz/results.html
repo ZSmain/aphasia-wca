@@ -3,20 +3,27 @@
 {% load static %}
     
 {% block title %}
-    Quiz
+    Aphasia WCA
 {% endblock %}
 
 {% block content %}
     <div class="container" dir="rtl">
         <br>
-        <h1 class="">تقييم الفهم الكتابي عند الحبسي الراشد<h1>
-        <hr>
-        <br>
-
-        <h3 class="fs-3">شكرا {{user.first_name}} {{user.last_name}} لإكمالك التقييم</h3>
-        <h3 class="fs-3">لقد أكملت التقييم في {{quiz_time}} دقيقة</h3>
-        <h3 class="fs-3">عدد الأجوبة الصحيجة: {{correct_answers}}</h3>
-        <h3 class="fs-3">عدد الأجوبة الخاطئة: {{incorrect_answers}}</h3>
+        <div class="card text-center">
+            <div dir="rtl" class="card-header fs-2">
+                نهاية التقييم
+            </div>
+            <div class="card-body">
+                <h5 class="card-title fs-2 fw-bold">تقييم الفهم الكتابي عند الحبسي الراشد</h5>
+                <p class="fs-3">شكرا {{user.first_name}} {{user.last_name}} لإكمالك التقييم</p>
+                <p class="fs-3">المدة المستغرقة في التقييم: {{quiz_time}}</p>
+                <p class="fs-3">عدد الأجوبة الصحيجة: {{correct_answers}}</p>
+                <p class="fs-3">عدد الأجوبة الخاطئة: {{incorrect_answers}}</p>
+            </div>
+            <div class="card-footer text-muted">
+                <a href="#" class="btn btn-primary">العودة إلى الصفحة الرئيسية</a>
+            </div>
+        </div>
     </div>
     
     <script>
