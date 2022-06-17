@@ -29,9 +29,35 @@ def quiz(request, quiz_id):
     quiz = Quiz.objects.filter(id=quiz_id).first()
     
     # get all questions ids of this quiz.
-    questions = Question.objects.filter(quiz=quiz).values('id', 'type').order_by('id')
+    questions = Question.objects.filter(quiz=quiz, is_active=True).values('id', 'type').order_by('id')
     
-    context = {'quiz': quiz, 'questions': list(questions)}
+    # get all answerd questions of this quiz.
+    answered_questions = UserAnswer.objects.filter(user=request.user).values('question_id')
+    
+    # filter questions that are not answered yet.
+    questions = questions.exclude(id__in=answered_questions)
+    
+    # get the first question.
+    first_question = Question.objects.filter(id=1).first()
+    # get the choices of the first question.
+    choices = Answer.objects.filter(question=first_question).all()
+    
+    first_question_answers = {
+        'instruction': first_question.instruction,
+        'text_question': first_question.text_question,
+        'choices': [
+            {
+                'image': choice.image_choice.url if choice.image_choice else None,
+                'is_correct': choice.is_correct
+            } for choice in choices
+        ]
+    }
+    
+    context = {
+        'quiz': quiz,
+        'questions': list(questions),
+        'first_question': first_question_answers
+    }
     
     return render(request, 'quiz/quiz.html', context)
 
