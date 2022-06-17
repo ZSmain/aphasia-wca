@@ -13,6 +13,8 @@ urlpatterns = [
     path('quiz/results/<int:quiz_id>/', views.results, name='results'),
     # path to the user detailed results view.
     path('detailed_results.json', views.user_detailed_results, name='user_detailed_results'),
+    # path to the user answers deletion view.
+    path('delete_answers.json', views.delete_user_answers, name='delete_user_answers'),
 ]
 
 if settings.DEBUG:

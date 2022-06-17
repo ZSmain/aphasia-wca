@@ -272,3 +272,28 @@ def user_detailed_results(request):
         raise Http404
             
 
+@login_required
+@csrf_exempt
+def delete_user_answers(request):
+    if request.method == 'POST':
+        try:
+            # get the user id from the request.
+            user_id = int(request.POST['user_id'])
+            
+            # delete the user's answers.
+            UserAnswer.objects.filter(
+                user__id=user_id
+            ).delete()
+            
+            # construct the response.
+            response = {
+                'status': 'success'
+            }
+            
+        except:
+            e = sys.exc_info()
+            return HttpResponse(e)
+        return JsonResponse(response, safe=False)
+    else:
+        raise Http404
+            
