@@ -8,12 +8,17 @@ var question_start_time = new Date().getTime();
 var fill_blank_answers = [];
 
 $(document).ready(function(){
-    // log all questions ids.
-    console.log("questions_ids: ", questions_ids);
-    
     // get the first question and its answer choices.
     getQuestionChoices(questions_ids[question_id_index], null);
 
+    // get the demonstrative question and its answer choices.
+    if (questions_ids[0] === '2') {
+        // hide the question-card.
+        $("#question-card").hide();
+
+        $('#first-question-modal').modal('show');
+    }
+    
     // on click of the choice button, get the next question and its answer choices.
     $('#answer-choices').on('click', 'button', function(){
         // get the selected choice.
@@ -37,6 +42,35 @@ $(document).ready(function(){
             
             // increment the question id index.
             question_id_index++;
+            // restart the question start time.
+            question_start_time = new Date().getTime();
+        }
+    });
+
+    $('.first-question-choice').on('click', function() {
+        // get the value of the button.
+        let selected_choice = $(this).val();
+
+        // if the value equal to False, show an alert message.
+        if (selected_choice == 'False') {
+            $('#incorrect-choice-alert').show();
+            setTimeout(() => {
+                $('#incorrect-choice-alert').hide();
+            }, 1500);
+            return;
+        } else {
+            // if the value equal to True, show an alert message for a while and close the modal.
+            $('#correct-choice-alert').show();
+            // whait for 2 seconds and close the modal.
+            setTimeout(function(){
+                $('#first-question-modal').modal('hide');
+            }, 1500);
+            
+            // show the question-card.
+            $("#question-card").show();
+
+            // restart the question start time when the modal is closed.
+            question_start_time = new Date().getTime();
         }
     });
 });
