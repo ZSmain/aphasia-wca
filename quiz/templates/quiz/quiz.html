@@ -45,6 +45,54 @@
                 </div>
             </div>
         </div>
+
+        <!-- the dialog that displays the first testing question -->
+        <div 
+            class="modal fade" 
+            id="first-question-modal" 
+            tabindex="-1" 
+            aria-labelledby="first-question-modal-label" 
+            aria-hidden="true"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+        >
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div dir="rtl" class="card text-center">
+                        <div class="card-header fs-4">
+                            {{ first_question.instruction}}
+                        </div>
+                        <div class="card-body">
+                            <!-- add a div that can show the question text, image or both -->
+                            <div>
+                                <div class="d-flex">
+                                    <div id="question-text" class="p-2 flex-fill fs-1 fw-bold" style="font-family: 'Tajawal', sans-serif;">
+                                        {{first_question.text_question}}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- show a division line -->
+                            <hr>
+                            <!-- add a div that can show the answer's choices texts or images -->
+                            <div class="row">
+                                {% for choice in first_question.choices %}
+                                    <button class="btn btn-default col first-question-choice" value="{{choice.is_correct}}">
+                                        <img src="{{choice.image}}" class="img-thumbnail" alt="" style="height:220px; width:220px">
+                                    </button>
+                                {% endfor %}
+                            </div>
+                            <div id="correct-choice-alert" class="alert alert-success" role="alert" style="display: none;">
+                                إجابتك صحيحة، يمكنك الآن بدأ التقييم
+                            </div>
+                            <div id="incorrect-choice-alert" class="alert alert-danger" role="alert" style="display: none;">
+                                إجابتك خاطئة، أعد المحاولة من فضلك
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     
     <script>
