@@ -5,9 +5,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import Http404, JsonResponse
 from django.http.response import HttpResponse
 import datetime
-from django.db.models import Sum
+from django.db.models import Sum, Count, Q, F, Case, When, Value, CharField
 
 from .models import Answer, Question, Quiz, Take, UserAnswer
+from accounts.models import Profile
 
 
 @login_required
@@ -210,4 +211,64 @@ def dashboard(request):
     ).all()
     
     return render(request, 'quiz/dashboard.html', {'users_answers': users_answers})
+
+@login_required
+@csrf_exempt
+def user_detailed_results(request):
+    if request.method == 'POST':
+        try:
+            # get the user id from the request.
+            user_id = int(request.POST['user_id'])
+            
+            # get the user's information.
+            user = Profile.objects.filter(
+                user__id=user_id
+            ).annotate(
+                first_name = F('user__first_name'),
+                last_name = F('user__last_name')
+            ).values(
+                'first_name', 'last_name', 'sex', 'birth_date',
+                'academic_degree', 'aphasia_type', 'injury_date', 
+                'address', 'phone_number'
+            )
+                        
+            # get the user's answers.
+            user_answers = UserAnswer.objects.filter(
+                user__id=user_id
+            ).annotate(
+                qn_type=F('question__type'),
+                qn_id=F('question__id'),
+                qn_label=F('question__label'),
+                # get the answer if it's correct using when and case.
+                user_answer = Case(
+                    When(answer__is_correct=True, then=Value('+')),
+                    default=F('answer__label'),
+                    output_field=CharField()
+                )
+            ).values(
+                'qn_type', 'qn_id', 'qn_label', 'user_answer', 'answer_time'
+            ).order_by('qn_id')
+            
+            user_answers = list(user_answers)
+            # loop through the user's answers and add the question's correct answer to the user's answers.
+            for i in range(len(user_answers)):
+                correct_answer_label = Answer.objects.filter(
+                    question=user_answers[i]['qn_id'],
+                    is_correct=True
+                ).values_list('label', flat=True).first()
+                user_answers[i]['correct_answer'] = correct_answer_label
+            
+            # construct the response.
+            response = {
+                'user': user[0],
+                'answers': user_answers
+            }
+            
+        except:
+            e = sys.exc_info()
+            return HttpResponse(e)
+        return JsonResponse(response, safe=False)
+    else:
+        raise Http404
+            
 

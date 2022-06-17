@@ -11,6 +11,8 @@ urlpatterns = [
     path('question_choices.json', views.get_question_choices, name='get_question_choices'),
     # add the path for the results page
     path('quiz/results/<int:quiz_id>/', views.results, name='results'),
+    # path to the user detailed results view.
+    path('detailed_results.json', views.user_detailed_results, name='user_detailed_results'),
 ]
 
 if settings.DEBUG:
