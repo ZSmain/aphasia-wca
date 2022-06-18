@@ -226,11 +226,8 @@ def user_detailed_results(request):
             ).annotate(
                 first_name = F('user__first_name'),
                 last_name = F('user__last_name')
-            ).values(
-                'first_name', 'last_name', 'sex', 'birth_date',
-                'academic_degree', 'aphasia_type', 'injury_date', 
-                'address', 'phone_number'
             )
+            user = user.first()
                         
             # get the user's answers.
             user_answers = UserAnswer.objects.filter(
@@ -260,7 +257,18 @@ def user_detailed_results(request):
             
             # construct the response.
             response = {
-                'user': user[0],
+                'user': {
+                    'first_name': user.first_name, 
+                    'last_name': user.last_name, 
+                    'sex': user.get_sex_display(),
+                    'birth_date': user.birth_date, 
+                    'aphasia_type': user.aphasia_type, 
+                    'injury_date': user.injury_date,
+                    'address': user.address, 
+                    'phone_number': user.phone_number,
+                    'academic_degree': user.get_academic_degree_display(),
+                    'aphasia_type': user.get_aphasia_type_display()
+                },
                 'answers': user_answers
             }
             

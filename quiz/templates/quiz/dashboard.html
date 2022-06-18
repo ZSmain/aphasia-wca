@@ -149,7 +149,6 @@
       // When the user clicks on the button, log the value of the button
       $('.details-button').on('click', function () {
         var user_id = $(this).val();
-        console.log('user_id: ', user_id);
 
         data = new FormData();
         data.append('user_id', user_id);
@@ -169,7 +168,7 @@
           $('#lastName').text(data.user.last_name);
           $('#sex').text(data.user.sex);
           $('#birthDate').text(data.user.birth_date);
-          $('#acamdemicDegree').text(data.user.academic_degree)
+          $('#academicDegree').text(data.user.academic_degree)
           $('#aphasiaType').text(data.user.aphasia_type)
           $('#injuryDate').text(data.user.injury_date)
           $('#address').text(data.user.address)
