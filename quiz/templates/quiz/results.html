@@ -27,6 +27,12 @@
     </div>
     
     <script>
+        $(document).ready(function(){
+            // go to the home page on clicking the button
+            $('.btn-primary').click(function(){
+                window.location.href = "{% url 'home' %}";
+            });
+        });
     </script>
     
 {% endblock %}
