@@ -23,13 +23,17 @@ $(document).ready(function () {
             $('#lastName').text(data.user.last_name);
             $('#sex').text(data.user.sex);
             $('#birthDate').text(data.user.birth_date);
-            $('#academicDegree').text(data.user.academic_degree)
-            $('#aphasiaType').text(data.user.aphasia_type)
-            $('#injuryDate').text(data.user.injury_date)
-            $('#address').text(data.user.address)
-            $('#phoneNumber').text(data.user.phone_number)
+            $('#academicDegree').text(data.user.academic_degree);
+            $('#aphasiaType').text(data.user.aphasia_type);
+            $('#injuryDate').text(data.user.injury_date);
+            $('#address').text(data.user.address);
+            $('#phoneNumber').text(data.user.phone_number);
             // get the table body with id='resultTableBody'
             var tableBody = document.getElementById('resultTableBody');
+
+            // clear the table body
+            tableBody.innerHTML = '';
+
             // get the number of questions
             var answersLength = data.answers.length;
             for (var i = 0; i < answersLength; i++) {
