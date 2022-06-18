@@ -38,8 +38,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                {% for user_answer in users_answers %}
+              {% for user_answer in users_answers %}
+                <tr>
                   <td>{{ user_answer.user_first_name }}</td>
                   <td>{{ user_answer.user_last_name }}</td>
                   <td>{{ user_answer.total_correct_answers }}</td>
@@ -67,8 +67,8 @@
                       </svg>
                   </button>
                   </td>
-                {% endfor %}
-              </tr>
+                </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>

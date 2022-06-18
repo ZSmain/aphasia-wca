@@ -8,3 +8,4 @@ static/admin/
 static/quiz/
 venv/
 data/
+static/staticfiles.json
