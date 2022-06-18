@@ -80,7 +80,7 @@ $(document).ready(function () {
         data.append('user_id', user_id);
 
         // Delete the user's answers
-        fetch('{% url "delete_user_answers" %}', {
+        fetch(delete_user_answers_url, {
             method: 'POST',
             body: data
         }).then((response) => {
