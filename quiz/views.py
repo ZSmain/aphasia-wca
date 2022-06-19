@@ -108,6 +108,16 @@ def get_question_choices(request):
             
             # reached the last question.
             elif next_question_id == 'undefined':
+                choice_id = int(choice_id)
+                
+                # save the user's answer.
+                UserAnswer(
+                    user=request.user,
+                    question_id=question_id,
+                    answer_id=choice_id,
+                    answer_time=answer_time
+                ).save()
+                
                 response = {'status': 'finished'}
             
             # save the user's answer and get the next question.
