@@ -1,4 +1,3 @@
-import imp
 from django.contrib import admin
 
 from .models import Quiz, Question, Answer
@@ -9,8 +8,16 @@ from .models import Quiz, Question, Answer
 admin.site.register(Quiz)
 
 # Register the Question model.
-admin.site.register(Question)
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('quiz', 'type', 'instruction', 'image_question', 'text_question', 'paragraph', 'label')
+    
+    search_fields = ['type', 'label', 'text_question', 'paragraph']
 
 # Register the Answer model.
-admin.site.register(Answer)
+@admin.register(Answer)
+class AnswerAdmin(admin.ModelAdmin):
+    list_display = ('question', 'image_choice', 'text_choice', 'label', 'is_correct')
+    
+    search_fields = ['question__label', 'label', 'text_choice']
 
