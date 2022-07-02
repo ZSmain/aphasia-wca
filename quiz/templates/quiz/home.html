@@ -16,20 +16,37 @@
                 <div class="card-deck">
                     {% for quiz in quizes %}
                         <div dir="rtl" class="card">
-                            <div class="card-header fs-2" style="font-family: 'Tajawal', sans-serif; text-align: center;">
-                                {{ quiz.title }}
-                            </div>
-                            <div class="card-body">
-                                <div id="question-body" class="d-flex">
-                                    <div id="question-text" class="p-2 flex-fill fs-5" style="font-family: 'Tajawal', sans-serif;">
-                                        <p class="card-text">{{ quiz.description }}</p>
+                            <div class="card-header bg-white fs-2" style="font-family: 'Tajawal', sans-serif; text-align: center;">
+                                <!-- {{ quiz.title }} -->
+                                <div class="d-flex align-middle">
+                                    <div class="p-2">
+                                        <img src="/media/quiz_images/university_logo.png" alt="شعار الجامعة" style="width: 130px;">
                                     </div>
-                                    <div class="p-2 flex-fill" style="align-self: center;">
-                                        <img src="/media/{{quiz.header_image }}" alt="صورة التقييم" style="width: 180px;">
+                                    <div class="p-2 flex-fill align-self-center">{{quiz.title}}</div>
+                                    <div class="p-2">
+                                        <img src="/media/{{quiz.header_image }}" alt="شعار المخبر" style="width: 160px;">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="card-body">
+                                <div id="question-body" class="">
+                                    <div id="question-text" class="p-2 fs-5" style="font-family: 'Tajawal', sans-serif;">
+                                        <!-- <p class="card-text">{{ quiz.description }}</p> -->
+                                        <p>تم إعداد هذا البرنامج المعلوماتي في إطار إعداد مذكرة لنيل شهادة الماستر تخصص أمراض اللغة والتواصل بعنوان:</p>
+                                    
+                                        <h3 class="text-center wf-bold text-decoration-underline">دراسة الفهم الكتابي عند الحبسي الراشد</h3>
+                                        <p><span class="fw-bold">إعداد الطالب: </span>شتوان أسامة</p>
+                                        <p><span class="fw-bold">إشراف الأستاذة: </span>صام نادية</p>
+                                        <p><span class="fw-bold">السنة الدراسية: </span>2022/2021</p>
+                                        <p style="text-align: justify;">يعد هذا البرنامج التقييمي تتويجا لبحث مكثف في مفاهيم اللغة المكتوبة،
+                                        إذ يهدف إلى قياس الفهم الكتابي عند الحبسي الراشد ما بين 20 و 60 سنة من الجنسين كأحد الأدوات المساهمة في تقييم القدرات اللغوية المتضررة
+                                    والمحتفظ بها بمراعات خصائص هذا الإضطراب والحالة الصحية للمفحوص بتسهيل إستجابته،
+                                وذلك باستغلال وسيلة يعتاد على إستعمالها كالكمبيوتر أو اللوح الإلكتروني، مع مراعات الخصائص اللغوية والثقافية للبيئة الجزائرية،
+                            كما يسهل هذا البرنامج عملية القياس والتقييم الأرطفوني من خلال تسجيل المعطيات وحساب النتائج آليا بالإعتماد على تكنوجيا الإعلام الآلي.</p>
+                                </div>
+                                </div>
                                 <div class="d-grid">
-                                    <a href="quiz/{{ quiz.id }}" class="btn btn-primary">بداية التقييم</a>
+                                    <a href="quiz/{{ quiz.id }}" class="btn btn-primary fs-5">بداية التقييم</a>
                                 </div>
                             </div>
                         </div>
