@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "aphasia-wca"
+version = "0.1.0"
+description = "Aphasia Quiz: Assessment program for written language comprehension in adults with Aphasia"
+authors = ["ismail <ishmael.zouaoui@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.10"
+Django = "^4.2.7"
+psycopg = "^3.1.14"
+Pillow = "^10.1.0"
+python-decouple = "^3.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
